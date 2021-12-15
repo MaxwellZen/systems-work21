@@ -1,10 +1,22 @@
 #include "pipe_networking.h"
 
+char computer[] = {0xf0, 0x9f, 0xa7, 0x91, 0xf0, 0x9f, 0x8f, 0xbb, 0xe2, 0x80, 0x8d, 0xf0, 0x9f, 0x92, 0xbb, '\0'};
+
+static void sighandler(int signo) {
+    if (signo==SIGINT) {
+        printf("\n%s Closing down server %s\n", computer, computer);
+        exit(0);
+    }
+}
 
 int main() {
 
+    signal(SIGINT, sighandler);
+
     int to_client;
     int from_client;
+
+    printf("%s Starting up server %s\n", computer, computer);
 
     while (1) {
 

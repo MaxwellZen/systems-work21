@@ -1,10 +1,21 @@
 #include "pipe_networking.h"
 
+char sparkle[] = {0xE2, 0x9C, 0xA8, '\0'};
+
+static void sighandler(int signo) {
+    if (signo==SIGINT) {
+        printf("\n%s Thank you for coming %s\n", sparkle, sparkle);
+        exit(0);
+    }
+}
 
 int main() {
+    signal(SIGINT, sighandler);
 
     int to_server;
     int from_server;
+
+    printf("%s Capitalization Tool %s\n", sparkle, sparkle);
 
     from_server = client_handshake( &to_server );
 
